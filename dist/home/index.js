@@ -1,82 +1,71 @@
+"use strict";
 class Product {
-    prodID: number;
-    prodName: string;
-    prodEdited: string;
-    prodValue: number;
-
-    constructor(prodID: number, name: string, prodEditedAt: string, value: number) {
+    constructor(prodID, name, prodEditedAt, value) {
         this.prodID = prodID;
         this.prodName = name;
         this.prodEdited = prodEditedAt;
         this.prodValue = value;
     }
 }
-
 var dateController = new Date();
-var productList: Product[] = [];
-var actualID: number;
-
+var productList = [];
+var actualID;
 function createProduct() {
     try {
         if (!validateProd()) {
             return;
         }
-        let nameInput = <HTMLInputElement>document.getElementById("productName");
-        let priceInput = <HTMLInputElement>document.getElementById("productPrice");
-        let prodName: string = nameInput.value;
-        let prodPrice: number = Number.parseFloat(priceInput.value);
-        let prodEdited: string = (dateController.getDate() + "/" + dateController.getMonth() + "/" + dateController.getFullYear());
-
-        let product: Product = new Product(actualID, prodName, prodEdited, prodPrice);
+        let nameInput = document.getElementById("productName");
+        let priceInput = document.getElementById("productPrice");
+        let prodName = nameInput.value;
+        let prodPrice = Number.parseFloat(priceInput.value);
+        let prodEdited = (dateController.getDate() + "/" + dateController.getMonth() + "/" + dateController.getFullYear());
+        let product = new Product(actualID, prodName, prodEdited, prodPrice);
         localStorage.setItem(("prod_" + actualID), JSON.stringify(product));
         productList.push(product);
-
         actualID++;
         localStorage.setItem("actualID", actualID.toString());
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
     }
 }
-
-function validateProd(): boolean {
+function validateProd() {
     try {
-        let prodName = <HTMLInputElement>document.getElementById("productName");
-        let prodPrice = <HTMLInputElement>document.getElementById("productPrice");
-
-        let productName: string = prodName.value;
-        let productPrice: number = Number.parseFloat(prodPrice.value);
-
+        let prodName = document.getElementById("productName");
+        let prodPrice = document.getElementById("productPrice");
+        let productName = prodName.value;
+        let productPrice = Number.parseFloat(prodPrice.value);
         if (!productName || typeof (productName) != "string") {
-            document.getElementById("productName")!.focus();
+            document.getElementById("productName").focus();
             return false;
         }
         if (!productPrice || typeof (productPrice) != "number") {
-            document.getElementById("productPrice")!.focus();
+            document.getElementById("productPrice").focus();
             return false;
         }
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
     }
     return true;
 }
-
-function loadProductsFromMemory(): void {
+function loadProductsFromMemory() {
     try {
         for (let i = 1; i < actualID; i++) {
-            let prodExist: string | null = localStorage.getItem(("prod_" + i));
-
+            let prodExist = localStorage.getItem(("prod_" + i));
             if (prodExist) {
-                let prod: Product = JSON.parse(prodExist);
+                let prod = JSON.parse(prodExist);
                 productList.push(prod);
             }
         }
         console.info("All products loaded!!!");
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
     }
 }
-
-function addProdElement(product: Product, color: boolean): string {
+function addProdElement(product, color) {
     return `
     <div class="row ${color ? "row-colorLight" : "row-colorDark"}">
      <div class="col size-25">
@@ -104,35 +93,33 @@ function addProdElement(product: Product, color: boolean): string {
     </div>
     `;
 }
-
-function reloadProducts(): void {
+function reloadProducts() {
     try {
-        let i: number = 0;
+        let i = 0;
         let list = document.getElementById("insertSpace-tableProds");
-        list!.innerHTML = "";
+        list.innerHTML = "";
         productList.forEach(element => {
-            list!.innerHTML += addProdElement(element, (i % 2 === 0 ? true : false));
+            list.innerHTML += addProdElement(element, (i % 2 === 0 ? true : false));
         });
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
     }
 }
-
-function goToEdit(prodID: number): void {
+function goToEdit(prodID) {
     window.location.replace(`../edit/edit.html?prodID=${prodID}`);
 }
-
-function removeCreatePage(): void {
+function removeCreatePage() {
     try {
-        document.getElementById("createPageController")!.remove();
-    } catch (error) {
+        document.getElementById("createPageController").remove();
+    }
+    catch (error) {
         console.error(error);
     }
 }
-
-function openNewProductPage(): void {
+function openNewProductPage() {
     try {
-        document.getElementById("pageBody")!.innerHTML += `<div id="createPageController" class="outNewProdPage">
+        document.getElementById("pageBody").innerHTML += `<div id="createPageController" class="outNewProdPage">
         <div class="close-button" onclick="removeCreatePage()">
             <i class="fa-solid fa-circle-xmark"></i>
         </div>
@@ -146,26 +133,28 @@ function openNewProductPage(): void {
             </div>
         </div>
     </div>`;
-    } catch (error) {
+    }
+    catch (error) {
         console.error(error);
     }
 }
-
-function deleteProduct(element: HTMLElement, prodID: string): void {
+function deleteProduct(element, prodID) {
+    var _a, _b;
     try {
         localStorage.removeItem("prod_" + prodID);
-        element.parentElement?.parentElement?.parentElement!.remove();
-    } catch (error) {
+        (_b = (_a = element.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.parentElement.remove();
+    }
+    catch (error) {
         console.error(error);
     }
 }
-
 document.addEventListener("DOMContentLoaded", () => {
-    let haveSavedId: string | null = localStorage.getItem("actualID");
+    let haveSavedId = localStorage.getItem("actualID");
     if (!haveSavedId) {
         actualID = 1;
         localStorage.setItem("actualID", "1");
-    } else {
+    }
+    else {
         actualID = Number.parseInt(haveSavedId);
     }
     loadProductsFromMemory();

@@ -1,26 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Products LaVi</title>
     <link rel="stylesheet" href="index.css">
-    <script src="../../../dist/index.js" defer></script>
+    <script src="../../../dist/home/index.js" defer></script>
+
+    <!-- Externs imports -->
+    <script src="https://kit.fontawesome.com/ad32a95b01.js" crossorigin="anonymous" defer></script>
 </head>
-<body>
-<nav>
-    <h1>Products LaVi</h1>
-</nav>
 
-<main>
-    <section>
-        <article>
-            <h2>Produto</h2>
-        </article>
-        <article>
-            <div id="prod-space"></div>
-        </article>
-    </section>
-</main>
+<body id="pageBody">
+    <nav>
+        <h1>Vitallie Products</h1>
+    </nav>
+    <main>
+        <section class="productlist">
+            <div class="row head-row">
+                <div class="col size-25">
+                    Name
+                </div>
 
+                <div class="col size-25">
+                    Price
+                </div>
+
+                <div class="col size-25">
+                    Last Edition
+                </div>
+
+                <div class="col size-25">
+                    Actions
+                </div>
+            </div>
+
+            <div id="insertSpace-tableProds">
+            </div>
+        </section>
+    </main>
+    <button class="new-button" onclick="openNewProductPage()">
+        <i class="fa fa-plus"></i>
+    </button>
 </body>
+
 </html>

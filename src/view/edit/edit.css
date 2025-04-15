@@ -51,6 +51,9 @@ main{
     border: 1px solid purple;
     border-radius: 10px;
 
+    display: flex;
+    justify-content: center;
+
     width: 100%;
     overflow: hidden;
 }
@@ -118,17 +121,9 @@ main{
     background-color: rgb(200, 0, 255, 0.25);
 }
 
-.text-controller{
-    max-width: 75%;
-
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
 /************** Product list end *************/
 
-.new-button{
+.save-button{
     position: fixed;
     right: 1rem;
     bottom: 1rem;
@@ -144,7 +139,7 @@ main{
     border: 1px solid black;
 }
 
-.new-button:hover {
+.save-button:hover {
     box-shadow: 0px 0px 1rem 0.1rem rgb(50, 0, 75, 0.5);
     transition: ease-in-out 0.05s;
     scale: 1.1;
@@ -206,10 +201,13 @@ main{
 }
 
 .button-controller{
-    width: 100%;
+    width: 75%;
     display: flex;
-    align-items: flex-end;
-    flex-direction: column-reverse;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .create-button{
@@ -225,18 +223,5 @@ main{
 .create-button:hover{
     box-shadow: 0px 0px 1rem 0.1rem rgb(50, 0, 75, 0.5);
     transition: ease-in-out 0.05s;
-    scale: 1.1;text-controller;
-}
-
-.close-button{
-    position: absolute;
-    color: white;
-    font-size: 3rem;
-
-    background-color: purple;
-    padding: 0.25rem;
-    border-radius: 100%;
-
-    right: 2.5%;
-    top: 2.5%;
+    scale: 1.1;
 }
