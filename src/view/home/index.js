@@ -107,7 +107,7 @@ function reloadProducts() {
     }
 }
 function goToEdit(prodID) {
-    window.location.replace(`../edit/edit.html?prodID=${prodID}`);
+    window.location.replace(`/edit/edit.html?prodID=${prodID}`);
 }
 function removeCreatePage() {
     try {
